@@ -1,8 +1,12 @@
+import {
+  addBookHandler,
+} from './handler';
+
 const routes = [
   {
     method: 'POST',
     path: '/books',
-    handler: () => null,
+    handler: addBookHandler,
   },
   {
     method: 'GET',
