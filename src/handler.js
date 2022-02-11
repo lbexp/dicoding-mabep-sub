@@ -55,6 +55,22 @@ const addBookHandler = (request, h) => {
   return response.serverError(h, 'Buku gagal ditambahkan');
 };
 
+const getAllBooksHandler = () => ({
+  status: 'success',
+  data: {
+    books: books.map(({
+      id,
+      name,
+      publisher,
+    }) => ({
+      id,
+      name,
+      publisher,
+    })),
+  },
+});
+
 export {
   addBookHandler,
+  getAllBooksHandler,
 };

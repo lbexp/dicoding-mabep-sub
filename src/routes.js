@@ -1,5 +1,6 @@
 import {
   addBookHandler,
+  getAllBooksHandler,
 } from './handler';
 
 const routes = [
@@ -11,7 +12,7 @@ const routes = [
   {
     method: 'GET',
     path: '/books',
-    handler: () => null,
+    handler: getAllBooksHandler,
   },
   {
     method: 'GET',
