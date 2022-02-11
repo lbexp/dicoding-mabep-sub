@@ -13,8 +13,6 @@ const addBookHandler = (request, h) => {
     reading,
   } = request.payload;
 
-  console.log(name);
-
   if (!name) {
     const response = h.response({
       status: 'fail',
