@@ -1,5 +1,6 @@
 import {nanoid} from 'nanoid';
 import books from './books';
+import response from './response';
 
 const addBookHandler = (request, h) => {
   const {
@@ -14,21 +15,11 @@ const addBookHandler = (request, h) => {
   } = request.payload;
 
   if (!name) {
-    const response = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. Mohon isi nama buku',
-    });
-    response.code(400);
-    return response;
+    return response.badRequest(h, 'Gagal menambahkan buku. Mohon isi nama buku');
   }
 
   if (readPage > pageCount) {
-    const response = h.response({
-      status: 'fail',
-      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
-    });
-    response.code(400);
-    return response;
+    return response.badRequest(h, 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount');
   }
 
   const id = nanoid(16);
@@ -56,24 +47,12 @@ const addBookHandler = (request, h) => {
   const isSuccess = books.filter((item) => item.id === id).length > 0;
 
   if (isSuccess) {
-    const response = h.response({
-      status: 'success',
-      message: 'Buku berhasil ditambahkan',
-      data: {
-        bookId: id,
-      },
+    return response.created(h, 'Buku berhasil ditambahkan', {
+      bookId: id,
     });
-    response.code(201);
-    return response;
   }
 
-  const response = h.response({
-    status: 'fail',
-    message: 'Buku gagal ditambahkan',
-  });
-
-  response.code(500);
-  return response;
+  return response.serverError(h, 'Buku gagal ditambahkan');
 };
 
 export {
