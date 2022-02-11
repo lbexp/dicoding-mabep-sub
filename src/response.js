@@ -2,8 +2,8 @@ const response = {
   created: (h, message, data) => {
     const result = h.response({
       status: 'success',
-      message: message,
-      data: data,
+      message,
+      data,
     });
 
     result.code(201);
@@ -13,17 +13,27 @@ const response = {
   badRequest: (h, message) => {
     const result = h.response({
       status: 'fail',
-      message: message,
+      message,
     });
 
     result.code(400);
 
     return result;
   },
+  notFound: (h, message) => {
+    const result = h.response({
+      status: 'fail',
+      message,
+    });
+
+    result.code(404);
+
+    return result;
+  },
   serverError: (h, message) => {
     const result = h.response({
       status: 'fail',
-      message: message,
+      message,
     });
 
     result.code(500);

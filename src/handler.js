@@ -70,7 +70,25 @@ const getAllBooksHandler = () => ({
   },
 });
 
+const getBookByIdHandler = (request, h) => {
+  const {id} = request.params;
+
+  const book = books.filter((item) => item.id === id)[0];
+
+  if (book !== undefined) {
+    return {
+      status: 'success',
+      data: {
+        book,
+      },
+    };
+  }
+
+  return response.notFound(h, 'Buku tidak ditemukan');
+};
+
 export {
   addBookHandler,
   getAllBooksHandler,
+  getBookByIdHandler,
 };
