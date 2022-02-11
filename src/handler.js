@@ -132,9 +132,27 @@ const editBookByIdHandler = (request, h) => {
   };
 };
 
+const deleteBookByIdHandler = (request, h) => {
+  const {id} = request.params;
+
+  const index = books.findIndex((item) => item.id === id);
+
+  if (index === -1) {
+    return response.notFound(h, 'Buku gagal dihapus. Id tidak ditemukan');
+  }
+
+  books.splice(index, 1);
+
+  return {
+    status: 'success',
+    message: 'Buku berhasil dihapus',
+  };
+};
+
 export {
   addBookHandler,
   getAllBooksHandler,
   getBookByIdHandler,
   editBookByIdHandler,
+  deleteBookByIdHandler,
 };
