@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --experimental-specifier-resolution=node ./src/main.js",
+    "start-prod": "NODE_ENV=production node --experimental-specifier-resolution=node ./src/main.js",
+    "start-dev": "nodemon --experimental-specifier-resolution=node ./src/main.js",
     "lint": "eslint ./src"
   },
   "author": "",
