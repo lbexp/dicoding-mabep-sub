@@ -55,20 +55,52 @@ const addBookHandler = (request, h) => {
   return response.serverError(h, 'Buku gagal ditambahkan');
 };
 
-const getAllBooksHandler = () => ({
-  status: 'success',
-  data: {
-    books: books.map(({
-      id,
-      name,
-      publisher,
-    }) => ({
-      id,
-      name,
-      publisher,
-    })),
-  },
-});
+const getAllBooksHandler = (request, h) => {
+  const {
+    name: qName,
+    reading: qReading,
+    finished: qFinished,
+  } = request.query;
+
+  let result = books;
+
+  if (qName !== undefined) {
+    result = result.filter((item) => (item.name).toLowerCase().includes(qName.toLowerCase()));
+  }
+
+  if (qReading !== undefined) {
+    if (parseInt(qReading) === 1) {
+      result = result.filter((item) => item.reading === true);
+    } else {
+      result = result.filter((item) => item.reading === false);
+    }
+  }
+
+  if (qFinished !== undefined) {
+    if (parseInt(qFinished) === 1) {
+      result = result.filter((item) => item.finished === true);
+    } else {
+      result = result.filter((item) => item.finished === false);
+    }
+  }
+
+  result = result.map(({
+    id,
+    name,
+    publisher,
+  }) => ({
+    id,
+    name,
+    publisher,
+  }));
+
+  return {
+    status: 'success',
+    data: {
+      books: result,
+    },
+  };
+};
 
 const getBookByIdHandler = (request, h) => {
   const {id} = request.params;
