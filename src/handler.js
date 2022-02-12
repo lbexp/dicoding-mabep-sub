@@ -156,6 +156,7 @@ const editBookByIdHandler = (request, h) => {
     pageCount,
     readPage,
     reading,
+    finished: pageCount === readPage ?? false,
   };
 
   return {
